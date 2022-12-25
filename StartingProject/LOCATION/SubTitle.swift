@@ -10,6 +10,10 @@ import SwiftUI
 struct SubTitle: View {
     var isReservationFormDisplayed = false
     
+    init(_ isReservationFormDisplayed:Bool) {
+        self.isReservationFormDisplayed = isReservationFormDisplayed
+    }
+    
     var body: some View {
         let title = isReservationFormDisplayed ? "Reservation Details" : "Select a location"
         Text(title)
@@ -22,6 +26,6 @@ struct SubTitle: View {
 
 struct SubTitle_Previews: PreviewProvider {
     static var previews: some View {
-        SubTitle()
+        SubTitle(false)
     }
 }

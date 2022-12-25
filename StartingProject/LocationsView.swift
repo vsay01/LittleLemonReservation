@@ -9,7 +9,7 @@ struct LocationsView: View {
             LittleLemonLogo() // 1
                 .padding(.top, 50)
             
-            SubTitle(isReservationFormDisplayed: model.displayingReservationForm) // 2
+            SubTitle(model.displayingReservationForm) // 2
             
             NavigationView {
                 RestaurantList(model.restaurants) // 3
