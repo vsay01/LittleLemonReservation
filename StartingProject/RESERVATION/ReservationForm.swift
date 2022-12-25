@@ -6,7 +6,6 @@ struct ReservationForm: View {
     @State var showFormInvalidMessage = false
     @State var errorMessage = ""
     
-    
     private var restaurant:RestaurantLocation
     @State var reservationDate = Date()
     @State var party:Int = 1
@@ -50,7 +49,12 @@ struct ReservationForm: View {
                                   value: $party,
                                   formatter: NumberFormatter())
                         .keyboardType(.numberPad)
-                        // add a modifier here
+                        .onChange(of: party) { inputValue in
+                            print(inputValue)
+                            if (inputValue <= 0) {
+                                party = 1
+                            }
+                        }// add a modifier here
                     }
                     
                     
@@ -120,7 +124,7 @@ struct ReservationForm: View {
                     
                     // add the RESERVE button
                     Button(action: {
-
+                        validateForm()
                     }, label: {
                         Text("CONFIRM RESERVATION")
                     })
@@ -129,6 +133,13 @@ struct ReservationForm: View {
                     .background(Color.blue)
                     .cornerRadius(20)
                     .padding(.top, 10)
+                    .alert(isPresented: $showFormInvalidMessage) {
+                        Alert(
+                            title: Text("Error"),
+                            message: Text(errorMessage),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
                 }
             }
             
@@ -148,7 +159,7 @@ struct ReservationForm: View {
             }
             
             // add an alert after this line
-            
+            // was added with the confirme reservation above instead of here
         }
         .onAppear {
             model.displayingReservationForm = true
